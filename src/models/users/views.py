@@ -6,8 +6,14 @@ from flask import url_for
 from flask import session
 
 from src.models.users.user import User
+import src.models.users.errors as UserErrors
 
 user_blueprint = Blueprint('User', __name__)
+
+
+# class UserErrors(object):
+#     pass
+
 
 @user_blueprint.route('/login', methods=['GET', 'POST'])
 def login_user():
@@ -15,12 +21,14 @@ def login_user():
         email = request.form['email']
         password = request.form['hashed']
 
-        if User.is_login_valid(email, password):
-            session['email'] = email
-            return redirect(url_for(".user_alerts"))
-        # return None
+        try:
+            if User.is_login_valid(email, password):
+                session['email'] = email
+                return redirect(url_for(".user_alerts"))
+        except UserErrors.UserError as e:
+            return e.message
 
-    return render_template("users/login.html")  #Send user a error if their login was invalid
+    return render_template("users/login.html")  # Send user a error if their login was invalid
 
 
 
@@ -28,7 +36,7 @@ def login_user():
 
 
 @user_blueprint.route('/register')
-def reister_user():
+def register_user():
     pass
 
 
