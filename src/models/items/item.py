@@ -18,8 +18,8 @@ class Item(object):
         self.price = self.load_price(tag_name, query)
         self._id = uuid.uuid4().hex if _id is None else _id
 
-    def __repr(self):
-        return "<Item {} with URL {}".format(self.name, self.url)
+    def __repr__(self):
+        return "<Item {} with URL {}>".format(self.name, self.url)
 
 
     def load_price(self, tag_name, query):
