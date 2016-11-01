@@ -11,4 +11,4 @@ class Store(object):
 
 
     def __repr__(self):
-        return "<Store {}".format(self.name)
+        return "<Store {}>".format(self.name)
