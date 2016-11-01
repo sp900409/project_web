@@ -1,4 +1,6 @@
 import re
+import uuid
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -7,13 +9,14 @@ from src.models.items import constants as ItemConstants
 
 # Item("Canon EOS 5D","http://www.johnlewis.com/john-lewis-wade-office-chair-black/p447855", Store("John Lewis", "http://www.johnlewis.com","span",{"itemprop": "price", "class": "now-price"}))
 class Item(object):
-    def __init__(self, name, url, store):
+    def __init__(self, name, url, store, _id=None):
         self.name = name
         self.url = url
         self.store = store
         tag_name = store.tag_name
         query = store.query
         self.price = self.load_price(tag_name, query)
+        self._id = uuid.uuid4().hex if _id is None else _id
 
     def __repr(self):
         return "<Item {} with URL {}".format(self.name, self.url)
