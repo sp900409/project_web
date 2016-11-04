@@ -8,7 +8,7 @@ from src.models.items.item import Item
 
 
 class Alert(object):
-    def __init__(self, user_email, price_limit, item_id, last_checked, _id=None):
+    def __init__(self, user_email, price_limit, item_id, last_checked=None, _id=None):
         self.user_email = user_email
         self.price_limit = price_limit
         self.item = Item.get_by_id(item_id)
@@ -37,12 +37,12 @@ class Alert(object):
         last_update_limit = datetime.datetime.utcnow() - datetime.timedelta(minutes_since_update)
         return [cls(**elem) for elem in Database.find(AlertConstants.COLLECTION,
                                                       {"last_checked":
-                                                           {"$gte": last_update_limit}
+                                                           {"$lte": last_update_limit}
                                                        })]
 
 
     def save_to_mongo(self):
-        Database.insert(AlertConstants.COLLECTION, self.json())
+        Database.update(AlertConstants.COLLECTION,{"_id": self._id}, self.json())
 
     def json(self):
         return {
