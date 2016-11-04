@@ -8,11 +8,14 @@ from src.common.database import Database
 from src.models.items import constants as ItemConstants
 
 # Item("Canon EOS 5D","http://www.johnlewis.com/john-lewis-wade-office-chair-black/p447855", Store("John Lewis", "http://www.johnlewis.com","span",{"itemprop": "price", "class": "now-price"}))
+from src.models.stores.store import Store
+
+
 class Item(object):
-    def __init__(self, name, url, store, _id=None):
+    def __init__(self, name, url, _id=None):
         self.name = name
         self.url = url
-        self.store = store
+        store = Store.find_by_url(url)
         tag_name = store.tag_name
         query = store.query
         self.price = self.load_price(tag_name, query)
