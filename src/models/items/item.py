@@ -12,14 +12,15 @@ from src.models.stores.store import Store
 
 
 class Item(object):
-    def __init__(self, name, url, _id=None):
+    def __init__(self, name, url, price=None,_id=None):
         self.name = name
         self.url = url
         store = Store.find_by_url(url)
         self.tag_name = store.tag_name
         self.query = store.query
-        self.price = None    # self.load_price(tag_name, query)
+        self.price = None if price is not None else price   # self.load_price(tag_name, query)
         self._id = uuid.uuid4().hex if _id is None else _id
+        print "INIT item" + "price:" + str(self.price)
 
     def __repr__(self):
         return "<Item {} with URL {}>".format(self.name, self.url)
@@ -38,6 +39,7 @@ class Item(object):
         match = pattern.search(string_price)
 
         self.price = match.group()
+        print "CLS:item load_price(): price" + self.price
         return self.price
 
     def save_to_mongo(self):
@@ -51,6 +53,7 @@ class Item(object):
 
 
     def find(self, name):
+        print "CLS:item find():" + name
         return Database.find(ItemConstants.COLLECTION, query={'name': name})
 
     @classmethod

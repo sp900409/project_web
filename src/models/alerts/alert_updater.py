@@ -9,7 +9,7 @@ Database.initialize()
 
 
 alerts_needing_update = Alert.find_needing_update()
-
+print alerts_needing_update
 
 
 for alert in alerts_needing_update:

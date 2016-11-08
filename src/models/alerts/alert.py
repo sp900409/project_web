@@ -18,28 +18,24 @@ class Alert(object):
     def __repr__(self):
         return "<Alert for {} on item {} with price {}>".format(self.user_email, self.item.name, self.price_limit)
 
-
     def send(self):
+        print "sending an email!!! "
         return requests.post(
             AlertConstants.URL,
-            auth={"api", AlertConstants.API_key},
-            data={
-                "from": AlertConstants.FROM,
-                "to": self.user_email,
-                "subject": "price limit reached for {}".format(self.item.name),
-                "text": "your found a deal"
-            }
-        )
-
+            auth=("api", AlertConstants.API_key),
+            data={"from": AlertConstants.FROM,
+                  "to": ["sp900409@gmail.com"],
+                  "subject": "Hello",
+                  "text": "Testing some Mailgun awesomeness!"})
 
     @classmethod
     def find_needing_update(cls, minutes_since_update=AlertConstants.ALERT_TIMEOUT):
         last_update_limit = datetime.datetime.utcnow() - datetime.timedelta(minutes_since_update)
+
         return [cls(**elem) for elem in Database.find(AlertConstants.COLLECTION,
                                                       {"last_checked":
                                                            {"$lte": last_update_limit}
                                                        })]
-
 
     def save_to_mongo(self):
         Database.update(AlertConstants.COLLECTION,{"_id": self._id}, self.json())
@@ -59,6 +55,6 @@ class Alert(object):
         return self.item.price
 
     def send_email_if_price_reached(self):
-        if self.item.price < self.price_limit:
+        if float(self.item.price) < self.price_limit:
             self.send()
 
