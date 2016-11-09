@@ -30,7 +30,7 @@ class Alert(object):
 
     @classmethod
     def find_needing_update(cls, minutes_since_update=AlertConstants.ALERT_TIMEOUT):
-        last_update_limit = datetime.datetime.utcnow() - datetime.timedelta(minutes_since_update)
+        last_update_limit = datetime.datetime.utcnow() - datetime.timedelta(minutes=minutes_since_update)
 
         return [cls(**elem) for elem in Database.find(AlertConstants.COLLECTION,
                                                       {"last_checked":

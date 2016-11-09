@@ -1,0 +1,9 @@
+def send_simple_message():
+    return requests.post(
+        "https://api.mailgun.net/v3/samples.mailgun.org/messages",
+        auth=("api", "key-68555e0810b50dacc1ad43173667e0be"),
+        data={"from": "Mailgun <postmaster@sandboxe8eb2aa0f60a4d5a8931616676e1f262.mailgun.org>",
+              "to": ["sp900409@gmail.com"],
+              "subject": "Hello",
+              "text": "Testing some Mailgun awesomeness!"})
+
