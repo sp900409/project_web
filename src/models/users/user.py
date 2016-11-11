@@ -4,7 +4,8 @@ from src.common.database import Database
 from src.common.utils import Utils
 
 import src.models.users.errors as UserErrors
-
+from src.models.alerts.alert import Alert
+import src.models.users.constants as UserConstants
 
 class User(object):
 
@@ -56,7 +57,7 @@ class User(object):
         return True
 
     def save_to_db(self):
-        Database.insert("users", self.json())
+        Database.insert(UserConstants.COLLECTION, self.json())
 
 
     def json(self):
@@ -65,3 +66,10 @@ class User(object):
             "email": self.email,
             "password": self.password
         }
+
+    @classmethod
+    def find_by_email(cls, email):
+        return cls(**Database.find_one(UserConstants.COLLECTION,{'email':email}))
+
+    def get_alerts(self):
+        return Alert.find_by_user_email(self.email)

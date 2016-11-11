@@ -18,7 +18,7 @@ class Item(object):
         store = Store.find_by_url(url)
         self.tag_name = store.tag_name
         self.query = store.query
-        self.price = None if price is not None else price   # self.load_price(tag_name, query)
+        self.price = None if price is None else price   # self.load_price(tag_name, query)
         self._id = uuid.uuid4().hex if _id is None else _id
         print "INIT item" + "price:" + str(self.price)
 
@@ -40,15 +40,17 @@ class Item(object):
 
         self.price = match.group()
         print "CLS:item load_price(): price" + self.price
+        self.save_to_mongo()
         return self.price
 
     def save_to_mongo(self):
-        Database.insert(ItemConstants.COLLECTION, self.json())
+        Database.update(ItemConstants.COLLECTION,{'_id': self._id}, self.json())
 
     def json(self):
         return {
             'name': self.name,
-            "url": self.url
+            'url': self.url,
+            'price': self.price
         }
 
 
