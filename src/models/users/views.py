@@ -8,7 +8,7 @@ from flask import session
 from src.models.users.user import User
 import src.models.users.errors as UserErrors
 
-user_blueprint = Blueprint('User', __name__)
+user_blueprint = Blueprint('users', __name__)
 
 
 # class UserErrors(object):

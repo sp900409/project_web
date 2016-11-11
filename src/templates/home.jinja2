@@ -2,7 +2,12 @@
 
 {% block content %}
 
-<p>Hello world</p>
+    <div class="jumbotron">
+        <h1>Priceing Srevice</h1>
+        <p>we scan online store websites to alert you of price drops in items that interest you</p>
+        <p>Just signup, and get started by adding the URL of an item that you wish to track.</p>
+        <p><a class="btn btn-primary btn-lg" href="{{ url_for('users.register_user') }}" role="button">Sign up</a></p>
+    </div>
 
 {% endblock %}
 
