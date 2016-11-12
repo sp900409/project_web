@@ -5,15 +5,12 @@ from flask import request
 from flask import url_for
 from flask import session
 
-from src.models.alerts.alert import Alert
+
 from src.models.users.user import User
 import src.models.users.errors as UserErrors
 
 user_blueprint = Blueprint('users', __name__)
 
-
-# class UserErrors(object):
-#     pass
 
 
 @user_blueprint.route('/login', methods=['GET', 'POST'])

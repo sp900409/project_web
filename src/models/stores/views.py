@@ -1,12 +1,11 @@
 from flask import Blueprint
-
-
+from flask import render_template
 
 store_blueprint = Blueprint('stores', __name__)
 
 @store_blueprint.route('/')
 def index():
-    return "This is the stores index"
+    return render_template("stores/store.jinja2")
 
 @store_blueprint.route('/store/<string:name>')
 def store_page():

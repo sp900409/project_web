@@ -53,7 +53,6 @@ class Item(object):
             'price': self.price
         }
 
-
     def find(self, name):
         print "CLS:item find():" + name
         return Database.find(ItemConstants.COLLECTION, query={'name': name})
