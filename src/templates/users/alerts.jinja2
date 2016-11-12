@@ -15,8 +15,9 @@
             <p class="list-group-item-text"> Item has been check on {{ alert.last_checked.strftime("%d-%m-%y. at %H:%M") }}</p>
             </a>
         {% endfor %}
-    </div>
 
+    </div>
+    <a class="btn btn-success" href="{{ url_for('alerts.create_alert') }} "> <span class="glyphicon glyphicon-plus"></span> Create Alert</a>
 
 
 {% endblock %}

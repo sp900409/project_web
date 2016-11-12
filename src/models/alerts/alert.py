@@ -61,3 +61,7 @@ class Alert(object):
     @classmethod
     def find_by_user_email(cls, user_email):
         return [cls(**elem) for elem in Database.find(AlertConstants.COLLECTION, {'user_email': user_email})]
+
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls(**Database.find_one(AlertConstants.COLLECTION, {'_id': _id}))

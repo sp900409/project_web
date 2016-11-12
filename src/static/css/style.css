@@ -2,9 +2,11 @@
     max-width: 500px;
     margin: 0 auto;
 
-    padding: 10px;
+    background-color: #E9E9E9;
+    padding: 20px;
 
-    border-color: #C9C9C9;;
-
-
+    border: 2px solid #A5A5A5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
