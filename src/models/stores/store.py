@@ -26,7 +26,7 @@ class Store(object):
         }
 
     @classmethod
-    def get_by_ID(cls, id):
+    def get_by_id(cls, id):
         return cls(**Database.find_one(StoreConstants.COLLECTIONS, {"_id": id}))
 
     def save_to_mongo(self):
@@ -53,5 +53,9 @@ class Store(object):
                 return store
             except:
                 raise StoreErrors.StoreNotFoundException("he URL Prefix used to find store didn't give us any result")
+
+    @classmethod
+    def all(cls):
+        return [cls(**elem) for elem in Database.find(StoreConstants.COLLECTIONS, {})]
 
 
