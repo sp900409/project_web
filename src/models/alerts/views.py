@@ -28,6 +28,21 @@ def create_alert():
     return render_template('alerts/create_alert.jinja2')
 
 
+@alert_blueprint.route('/edit/<string:alert_id>', methods=['GET','POST'])
+@user_decorators.requires_login     # redirect the user to 'users.login' if session['email'] is None
+def edit_alert(alert_id):
+    alert = Alert.find_by_id(alert_id)
+    if request.method == 'POST':
+
+        price_limit = float(request.form['price_limit'])
+
+        alert = Alert.find_by_id(alert_id)
+        alert.price_limit = price_limit
+        alert.save_to_mongo()
+
+        return redirect(url_for('users.user_alerts'))
+    return render_template('alerts/edit_alert.jinja2', alert=alert)
+
 @alert_blueprint.route('/deactivate/<string:alert_id>')
 @user_decorators.requires_login
 def deactivate_alert(alert_id):

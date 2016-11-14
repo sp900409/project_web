@@ -30,7 +30,7 @@ class Store(object):
         return cls(**Database.find_one(StoreConstants.COLLECTIONS, {"_id": id}))
 
     def save_to_mongo(self):
-        Database.insert(StoreConstants.COLLECTIONS, self.json())
+        Database.update(StoreConstants.COLLECTIONS, {'_id': self._id}, self.json())
 
     @classmethod
     def get_by_name(cls, store_name):
@@ -58,4 +58,5 @@ class Store(object):
     def all(cls):
         return [cls(**elem) for elem in Database.find(StoreConstants.COLLECTIONS, {})]
 
-
+    def delete(self):
+        Database.remove(StoreConstants.COLLECTIONS,{'_id': self._id})
