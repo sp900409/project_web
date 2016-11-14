@@ -8,6 +8,7 @@ from flask import session
 from src.models.alerts.alert import Alert
 from src.models.users.user import User
 import src.models.users.errors as UserErrors
+import src.models.users.decorators as user_decorators
 
 user_blueprint = Blueprint('users', __name__)
 
@@ -46,6 +47,7 @@ def register_user():
 
 
 @user_blueprint.route('/alerts')
+@user_decorators.requires_login
 def user_alerts():
     user = User.find_by_email(session['email'])
     print str(session['email'])
