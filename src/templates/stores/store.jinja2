@@ -10,6 +10,7 @@
     </div>
     <p>All URLs in this store should start with <strong>{{ store.url_prefix }}</strong></p>
 
+    {% if session['email'] in config.ADMINS %}
     <div class="panel panel-default">
         <div class="panel-body">
             <a class="btn btn-warning" href="{{ url_for('stores.edit_store', store_id=store._id) }}" role="button">Edit
@@ -18,4 +19,5 @@
                 Store</a>
         </div>
     </div>
+    {%  endif %}
 {% endblock %}

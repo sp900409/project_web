@@ -1,4 +1,4 @@
 DEBUG = True
-ADMIN = frozenset([
+ADMINS = frozenset([
     "yourname@yourdomain.com"
 ])

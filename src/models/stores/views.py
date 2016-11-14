@@ -6,6 +6,7 @@ from flask import request
 from flask import url_for
 
 from src.models.stores.store import Store
+import src.models.users.decorators as user_decorators
 
 store_blueprint = Blueprint('stores', __name__)
 
@@ -36,6 +37,7 @@ def create_store():
     return render_template('stores/create_store.jinja2')
 
 @store_blueprint.route('/edit/<string:store_id>', methods=['GET', 'POST'])
+@user_decorators.requires_admin_permission
 def edit_store(store_id):
     store = Store.get_by_id(store_id)
 
@@ -59,6 +61,7 @@ def edit_store(store_id):
     return render_template('stores/edit_store.jinja2', store=store)
 
 @store_blueprint.route('/delete/<string:store_id>')
+@user_decorators.requires_admin_permission
 def delete_store(store_id):
     Store.get_by_id(store_id).delete()
     return redirect(url_for('.index'))
