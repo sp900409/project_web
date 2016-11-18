@@ -24,7 +24,7 @@ def requires_admin_permission(func):
         # below is addition part of decorator add to original function
         if 'email' not in session.keys() or session['email'] is None:
             return redirect(url_for('users.login_user', next = request.path))
-        if session['email'] not in app.config.ADMINS:
+        if session['email'] not in app.config['ADMINS']:
             return redirect(url_for('users.login_user', message="you need to be a admin"))
         return func(*args, **kwargs)   # func(...) args : function argument
     return decorated_function

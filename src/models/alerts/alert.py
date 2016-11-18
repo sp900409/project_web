@@ -27,7 +27,7 @@ class Alert(object):
             data={"from": AlertConstants.FROM,
                   "to": ["sp900409@gmail.com"],
                   "subject": "Hello",
-                  "text": "Testing some Mailgun awesomeness!"})
+                  "text": "you get the deal {}".format(self.item.url)})
 
     @classmethod
     def find_needing_update(cls, minutes_since_update=AlertConstants.ALERT_TIMEOUT):
